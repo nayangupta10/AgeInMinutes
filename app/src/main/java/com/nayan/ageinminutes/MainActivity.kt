@@ -4,9 +4,8 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.btnDatePicker).setOnClickListener { view ->
+        btnDatePicker.setOnClickListener { view ->
             callDatePickerDialog(view)
         }
     }
@@ -27,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     val hours = 1000 * 60 * 60
     val days = 1000 * 60 * 60 * 24
     */
-    fun callDatePickerDialog(view: View) {
+    private fun callDatePickerDialog(view: View) {
 
         val myCalender = Calendar.getInstance()
         val year = myCalender.get(Calendar.YEAR)
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "The chosen year is $selectedYear, The month is $selectedMonth and The day is $selectedDayOfMonth", Toast.LENGTH_SHORT).show()
 
             val selectedDate = "${selectedDayOfMonth}/${selectedMonth + 1}/${selectedYear}"
-            findViewById<TextView>(R.id.tvSelectedDate).text = selectedDate
+            tvSelectedDate.text = selectedDate
 
             val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
             var theDate = Date()
@@ -53,11 +52,11 @@ class MainActivity : AppCompatActivity() {
 
             val selectedCurrentDateInMinutes = currentDate.time / (1000 * 60)
             val differenceInMinutes = selectedCurrentDateInMinutes - selectedDateInMinutes
-            findViewById<TextView>(R.id.tvSelectedDateInMinutes).text = differenceInMinutes.toString()
+            tvSelectedDateInMinutes.text = differenceInMinutes.toString()
 
             val selectedCurrentDateInDays = currentDate.time / (1000 * 60 * 60 * 24)
             val differenceInDays = selectedCurrentDateInDays - selectedDateInDays
-            findViewById<TextView>(R.id.tvSelectedDateInDays).text = differenceInDays.toString()
+            tvSelectedDateInDays.text = differenceInDays.toString()
 
         }, year, month, day)
 
